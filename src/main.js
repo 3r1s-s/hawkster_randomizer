@@ -97,8 +97,9 @@ async function loadChannelPfp(channelId) {
         console.error("error fetching channel pfp:", err);
     }
 }
-
-loadChannelPfp(CHANNEL_ID);
+document.addEventListener('DOMContentLoaded', () => {
+    loadChannelPfp(CHANNEL_ID);
+});
 
 const playerR = document.getElementById('player-r');
 
