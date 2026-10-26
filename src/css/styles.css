@@ -1,9 +1,117 @@
 :root {
-    --accent: #0E5F1F;
-    --bg: #0F0F0F;
-    --bg-200: #161616;
-    --bg-300: #202020;
-    --color: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+
+    -webkit-touch-callout: none;
+    -webkit-user-callout: none;
+    -webkit-user-drag: none;
+    -webkit-user-modify: none;
+    -webkit-highlight: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --md-sys-color-primary: rgb(157 212 158);
+    --md-sys-color-surface-tint: rgb(157 212 158);
+    --md-sys-color-on-primary: rgb(2 57 18);
+    --md-sys-color-primary-container: rgb(31 80 39);
+    --md-sys-color-on-primary-container: rgb(184 240 184);
+    --md-sys-color-secondary: rgb(184 204 181);
+    --md-sys-color-on-secondary: rgb(36 52 36);
+    --md-sys-color-secondary-container: rgb(58 75 58);
+    --md-sys-color-on-secondary-container: rgb(212 232 208);
+    --md-sys-color-tertiary: rgb(161 206 214);
+    --md-sys-color-on-tertiary: rgb(0 54 61);
+    --md-sys-color-tertiary-container: rgb(31 77 84);
+    --md-sys-color-on-tertiary-container: rgb(188 234 242);
+    --md-sys-color-error: rgb(255 180 171);
+    --md-sys-color-on-error: rgb(105 0 5);
+    --md-sys-color-error-container: rgb(147 0 10);
+    --md-sys-color-on-error-container: rgb(255 218 214);
+    --md-sys-color-background: rgb(16 21 16);
+    --md-sys-color-on-background: rgb(224 228 219);
+    --md-sys-color-surface: rgb(16 21 16);
+    --md-sys-color-on-surface: rgb(224 228 219);
+    --md-sys-color-surface-variant: rgb(66 73 64);
+    --md-sys-color-on-surface-variant: rgb(193 201 190);
+    --md-sys-color-outline: rgb(140 147 137);
+    --md-sys-color-outline-variant: rgb(66 73 64);
+    --md-sys-color-shadow: rgb(0 0 0);
+    --md-sys-color-scrim: rgb(0 0 0);
+    --md-sys-color-inverse-surface: rgb(224 228 219);
+    --md-sys-color-inverse-on-surface: rgb(45 50 44);
+    --md-sys-color-inverse-primary: rgb(55 105 61);
+    --md-sys-color-primary-fixed: rgb(184 240 184);
+    --md-sys-color-on-primary-fixed: rgb(0 33 7);
+    --md-sys-color-primary-fixed-dim: rgb(157 212 158);
+    --md-sys-color-on-primary-fixed-variant: rgb(31 80 39);
+    --md-sys-color-secondary-fixed: rgb(212 232 208);
+    --md-sys-color-on-secondary-fixed: rgb(15 31 17);
+    --md-sys-color-secondary-fixed-dim: rgb(184 204 181);
+    --md-sys-color-on-secondary-fixed-variant: rgb(58 75 58);
+    --md-sys-color-tertiary-fixed: rgb(188 234 242);
+    --md-sys-color-on-tertiary-fixed: rgb(0 31 36);
+    --md-sys-color-tertiary-fixed-dim: rgb(161 206 214);
+    --md-sys-color-on-tertiary-fixed-variant: rgb(31 77 84);
+    --md-sys-color-surface-dim: rgb(16 21 16);
+    --md-sys-color-surface-bright: rgb(54 58 53);
+    --md-sys-color-surface-container-lowest: rgb(11 15 11);
+    --md-sys-color-surface-container-low: rgb(24 29 24);
+    --md-sys-color-surface-container: rgb(28 33 28);
+    --md-sys-color-surface-container-high: rgb(39 43 38);
+    --md-sys-color-surface-container-highest: rgb(49 54 48);
+}
+
+.light {
+    --md-sys-color-primary: rgb(55 105 61);
+    --md-sys-color-surface-tint: rgb(55 105 61);
+    --md-sys-color-on-primary: rgb(255 255 255);
+    --md-sys-color-primary-container: rgb(184 240 184);
+    --md-sys-color-on-primary-container: rgb(31 80 39);
+    --md-sys-color-secondary: rgb(81 99 80);
+    --md-sys-color-on-secondary: rgb(255 255 255);
+    --md-sys-color-secondary-container: rgb(212 232 208);
+    --md-sys-color-on-secondary-container: rgb(58 75 58);
+    --md-sys-color-tertiary: rgb(57 101 108);
+    --md-sys-color-on-tertiary: rgb(255 255 255);
+    --md-sys-color-tertiary-container: rgb(188 234 242);
+    --md-sys-color-on-tertiary-container: rgb(31 77 84);
+    --md-sys-color-error: rgb(186 26 26);
+    --md-sys-color-on-error: rgb(255 255 255);
+    --md-sys-color-error-container: rgb(255 218 214);
+    --md-sys-color-on-error-container: rgb(147 0 10);
+    --md-sys-color-background: rgb(247 251 242);
+    --md-sys-color-on-background: rgb(24 29 24);
+    --md-sys-color-surface: rgb(247 251 242);
+    --md-sys-color-on-surface: rgb(24 29 24);
+    --md-sys-color-surface-variant: rgb(222 229 217);
+    --md-sys-color-on-surface-variant: rgb(66 73 64);
+    --md-sys-color-outline: rgb(114 121 112);
+    --md-sys-color-outline-variant: rgb(193 201 190);
+    --md-sys-color-shadow: rgb(0 0 0);
+    --md-sys-color-scrim: rgb(0 0 0);
+    --md-sys-color-inverse-surface: rgb(45 50 44);
+    --md-sys-color-inverse-on-surface: rgb(238 242 233);
+    --md-sys-color-inverse-primary: rgb(157 212 158);
+    --md-sys-color-primary-fixed: rgb(184 240 184);
+    --md-sys-color-on-primary-fixed: rgb(0 33 7);
+    --md-sys-color-primary-fixed-dim: rgb(157 212 158);
+    --md-sys-color-on-primary-fixed-variant: rgb(31 80 39);
+    --md-sys-color-secondary-fixed: rgb(212 232 208);
+    --md-sys-color-on-secondary-fixed: rgb(15 31 17);
+    --md-sys-color-secondary-fixed-dim: rgb(184 204 181);
+    --md-sys-color-on-secondary-fixed-variant: rgb(58 75 58);
+    --md-sys-color-tertiary-fixed: rgb(188 234 242);
+    --md-sys-color-on-tertiary-fixed: rgb(0 31 36);
+    --md-sys-color-tertiary-fixed-dim: rgb(161 206 214);
+    --md-sys-color-on-tertiary-fixed-variant: rgb(31 77 84);
+    --md-sys-color-surface-dim: rgb(215 219 211);
+    --md-sys-color-surface-bright: rgb(247 251 242);
+    --md-sys-color-surface-container-lowest: rgb(255 255 255);
+    --md-sys-color-surface-container-low: rgb(241 245 236);
+    --md-sys-color-surface-container: rgb(235 239 230);
+    --md-sys-color-surface-container-high: rgb(229 233 225);
+    --md-sys-color-surface-container-highest: rgb(224 228 219);
 }
 
 body {
@@ -13,13 +121,26 @@ body {
     width: 100vw;
     height: 100vh;
 
-    font-family: 'GG Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: var(--bg);
-    color: var(--color);
+    font-family: 'Google Sans Flex', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
 }
 
 h1 {
     margin: 0;
+}
+
+header {
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+header img {
+    display: block;
+    height: 60px;
 }
 
 #main {
@@ -38,8 +159,263 @@ h1 {
     max-height: 900px;
     padding: 1.5rem;
 
-    background-color: var(--bg-200);
-    border: 1px solid var(--bg-300);
-    border-radius: 12px;
+    background-color: var(--md-sys-color-surface-container);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    border-radius: 16px;
 
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.tabs {
+    display: flex;
+    padding: 0 1.5rem 0.5rem 1.5rem;
+    gap: 4px;
+    align-self: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+}
+
+.tab.active {
+    --md-ripple-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-primary);
+}
+
+.tab:first-child {
+    border-radius: 12px 4px 4px 4px;
+}
+
+.tab:last-child {
+    border-radius: 4px 12px 4px 4px;
+}
+
+.active-indicator {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    width: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--md-sys-color-primary);
+    transition: width 0.2s cubic-bezier(0, 0, 0, 1);
+    border-radius: 2px 2px 0 0;
+}
+
+.tab.active .active-indicator {
+    width: 50px;
+}
+
+.buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background {
+    color: #fff;
+    transform: rotate(-10deg) scale(1.5) translateY(-70px);
+    background-image:
+        radial-gradient(circle, var(--md-sys-color-on-background) 2px, transparent 2px),
+        radial-gradient(circle, var(--md-sys-color-on-background) 2px, transparent 2px);
+    background-size: 10px 10px;
+    background-position: 0 0, 5px 5px;
+    background-repeat: repeat;
+    width: 100%;
+    height: 100%;
+    animation: move 2s infinite linear;
+}
+
+.background-animation {
+    width: 100%;
+    height: 100%;
+}
+
+#banner-background {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    z-index: 1;
+    opacity: 8%;
+    border-radius: 16px;
+    -webkit-mask-image: linear-gradient(0deg, #0000 50%, #ffffffb0 100%);
+    mask-image: linear-gradient(0deg, #0000 50%, #ffffffb0 100%);
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0, 5px 5px;
+    }
+
+    to {
+        background-position: 10px 10px, 15px 15px;
+    }
+}
+
+.embed-area {
+    border-radius: 12px;
+    background-color: var(--md-sys-color-surface-container-lowest);
+    border: 1px solid var(--md-sys-color-outline-variant);
+    width: auto;
+    max-width: 100%;
+    margin: auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+#guessing .embed-area {
+    align-self: center;
+    height: 100%;
+    max-height: min(580px, 55vh);
+    opacity: 1;
+    transition: max-height 0.4s cubic-bezier(0.2, 0, 0, 1), height 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+#guessing.has-options .embed-area {
+    height: 200px;
+    max-height: 200px;
+}
+
+#guessing .embed-area .player {
+    opacity: 1;
+    transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+#guessing.has-options .embed-area .player {
+    opacity: 0;
+}
+
+#guessing.has-options.revealed .embed-area .player {
+    opacity: 1;
+}
+
+#random-vid .embed-area {
+    align-self: center;
+    height: 100%;
+}
+
+.page {
+    display: none;
+}
+
+.page.visible {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-height: 0;
+}
+
+.long-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    opacity: 0.7;
+    letter-spacing: 0.1rem;
+}
+
+.player {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.top-page-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+#player-g::after {
+    position: absolute;
+    top: 11px;
+    left: 71px;
+    width: 828px;
+    max-width: calc(100% - 80px);
+    height: 1lh;
+    /* backdrop-filter: blur(10px); */
+    content: '';
+    background-color: var(--md-sys-color-surface-container-lowest);
+    pointer-events: none;
+}
+
+.score-display {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--md-sys-color-primary);
+    min-height: 1.2em;
+}
+
+.guess-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 800px;
+    align-self: center;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(6px);
+    overflow: hidden;
+    pointer-events: none;
+    padding: 0;
+    transition: max-height 0.35s cubic-bezier(0.2, 0, 0, 1),
+        opacity 0.25s cubic-bezier(0.2, 0, 0, 1),
+        transform 0.25s cubic-bezier(0.2, 0, 0, 1),
+        padding 0.35s cubic-bezier(0.2, 0, 0, 1);
+}
+
+#guessing.has-options .guess-options {
+    max-height: 300px;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    padding: 0.5rem 0;
+}
+
+.guess-options md-button {
+    width: 100%;
+    text-align: left;
+    --button-text: var(--md-sys-color-on-surface);
+}
+
+.guess-result {
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-height: 1.4em;
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.2s;
+
+    display: none;
+}
+
+#guessing.revealed .guess-result {
+    opacity: 1;
+}
+
+.guess-result.correct {
+    color: var(--md-sys-color-primary);
+}
+
+.guess-result.wrong {
+    color: var(--md-sys-color-error);
 }
