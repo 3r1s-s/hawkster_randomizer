@@ -143,6 +143,15 @@ header img {
     height: 60px;
 }
 
+a {
+    text-decoration: none;
+    color: var(--md-sys-color-primary);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
 #main {
     width: 100vw;
     height: 100vh;
@@ -418,4 +427,64 @@ header img {
 
 .guess-result.wrong {
     color: var(--md-sys-color-error);
+}
+
+.bottom-left {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    z-index: 2;
+}
+
+.bottom-right {
+    position: fixed;
+    bottom: 2px;
+    right: 2px;
+    opacity: 0.8;
+    font-size: 12px;
+}
+
+.subscribe-card {
+    border: 1px solid var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface-container);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    /* width: 200px; */
+}
+
+.subscribe-card h3 {
+    margin: 0;
+}
+
+#pfp {
+    width: 48px;
+    height: 48px;
+    border-radius: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .subscribe-card {
+        display: none;
+    }
+
+    .bottom-right {
+        display: none;
+    }
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.gap {
+    gap: 4px;
 }

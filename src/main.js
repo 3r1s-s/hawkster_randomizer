@@ -67,6 +67,39 @@ async function getMultipleRandomUploads(channelId, count) {
     return results;
 }
 
+async function loadChannelPfp(channelId) {
+    const pfpImg = document.getElementById('pfp');
+    if (!pfpImg) return;
+
+    const cached = sessionStorage.getItem(`yt_pfp_${channelId}`);
+    if (cached) {
+        pfpImg.src = cached;
+        return;
+    }
+
+    try {
+        const params = new URLSearchParams({
+            part: 'snippet',
+            id: channelId,
+            key: apiKey,
+        });
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?${params}`);
+        const data = await res.json();
+        const pfpUrl = data.items?.[0]?.snippet?.thumbnails?.high?.url
+            || data.items?.[0]?.snippet?.thumbnails?.medium?.url
+            || data.items?.[0]?.snippet?.thumbnails?.default?.url;
+
+        if (pfpUrl) {
+            pfpImg.src = pfpUrl;
+            sessionStorage.setItem(`yt_pfp_${channelId}`, pfpUrl);
+        }
+    } catch (err) {
+        console.error("error fetching channel pfp:", err);
+    }
+}
+
+loadChannelPfp(CHANNEL_ID);
+
 const playerR = document.getElementById('player-r');
 
 function embedVideo(container, videoId) {
