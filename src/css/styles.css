@@ -349,7 +349,7 @@ header img {
     left: 71px;
     width: 828px;
     max-width: calc(100% - 80px);
-    height: 1lh;
+    height: 1.2lh;
     /* backdrop-filter: blur(10px); */
     content: '';
     background-color: var(--md-sys-color-surface-container-lowest);
