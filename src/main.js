@@ -4,6 +4,9 @@ import './components/md-ripple.js';
 const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY;
 const baseUrl = 'https://www.googleapis.com/youtube/v3/playlistItems';
 const CHANNEL_ID = 'UC-aF9X9tQMuWPM__L4X5NuQ';
+const VIDEO_CACHE_KEY = `hawkster_videos_${CHANNEL_ID}`;
+const VIDEO_CACHE_EXPIRY = 1000 * 60 * 60 * 6;
+const memoryHistory = {};
 
 async function fetchPage(playlistId, pageToken) {
     const params = new URLSearchParams({
@@ -20,51 +23,124 @@ async function fetchPage(playlistId, pageToken) {
     return data;
 }
 
-async function getRandomUpload(channelId) {
+async function getAllChannelVideos(channelId) {
+    try {
+        const cached = localStorage.getItem(VIDEO_CACHE_KEY);
+        if (cached) {
+            const parsed = JSON.parse(cached);
+            if (parsed && Array.isArray(parsed.videos) && parsed.videos.length > 0) {
+                if (Date.now() - parsed.timestamp < VIDEO_CACHE_EXPIRY) {
+                    return parsed.videos;
+                }
+            }
+        }
+    } catch {}
+
     try {
         if (!channelId.startsWith('UC')) {
             throw new Error("invalid channel ID format, it must start with 'UC'.");
         }
         const uploadsPlaylistId = 'UU' + channelId.substring(2);
 
-        let data = await fetchPage(uploadsPlaylistId);
+        let videos = [];
+        let pageToken = '';
 
-        const totalResults = data.pageInfo.totalResults;
-        if (totalResults === 0) throw new Error("This channel has no public uploads.");
+        while (true) {
+            const data = await fetchPage(uploadsPlaylistId, pageToken);
+            if (!data.items || data.items.length === 0) break;
 
-        const randomIndex = Math.floor(Math.random() * totalResults);
-        const targetPage = Math.floor(randomIndex / 50);
-        const indexOnTargetPage = randomIndex % 50;
+            for (const item of data.items) {
+                const title = item.snippet?.title;
+                const videoId = item.snippet?.resourceId?.videoId;
+                if (videoId && title && title !== 'Private video' && title !== 'Deleted video') {
+                    videos.push({ id: videoId, title });
+                }
+            }
 
-        for (let i = 0; i < targetPage; i++) {
-            if (!data.nextPageToken) break;
-            data = await fetchPage(uploadsPlaylistId, data.nextPageToken);
+            pageToken = data.nextPageToken;
+            if (!pageToken) break;
         }
 
-        const randomVideo = data.items[indexOnTargetPage] ?? data.items[data.items.length - 1];
-        return {
-            id: randomVideo.snippet.resourceId.videoId,
-            title: randomVideo.snippet.title,
-        };
+        if (videos.length > 0) {
+            try {
+                localStorage.setItem(VIDEO_CACHE_KEY, JSON.stringify({
+                    timestamp: Date.now(),
+                    videos,
+                }));
+            } catch {}
+            return videos;
+        }
     } catch (error) {
-        console.error("error fetching video:", error);
-        return null;
+        console.error("error fetching all videos:", error);
+    }
+
+    try {
+        const fallback = localStorage.getItem(VIDEO_CACHE_KEY);
+        if (fallback) return JSON.parse(fallback).videos || [];
+    } catch {}
+
+    return [];
+}
+
+function getPlayedVideos(key) {
+    try {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(item) : (memoryHistory[key] || []);
+    } catch {
+        return memoryHistory[key] || [];
     }
 }
 
-async function getMultipleRandomUploads(channelId, count) {
-    const seen = new Set();
-    const results = [];
-    let attempts = 0;
-    while (results.length < count && attempts < count * 3) {
-        attempts++;
-        const video = await getRandomUpload(channelId);
-        if (video && !seen.has(video.id)) {
-            seen.add(video.id);
-            results.push(video);
-        }
+function savePlayedVideos(key, list) {
+    try {
+        localStorage.setItem(key, JSON.stringify(list));
+    } catch {
+        memoryHistory[key] = list;
     }
-    return results;
+}
+
+function getNextUnplayedVideo(allVideos, storageKey) {
+    if (!allVideos || allVideos.length === 0) return null;
+
+    let played = getPlayedVideos(storageKey);
+    let unplayed = allVideos.filter(v => !played.includes(v.id));
+
+    if (unplayed.length === 0) {
+        played = [];
+        savePlayedVideos(storageKey, []);
+        unplayed = [...allVideos];
+    }
+
+    const randomIndex = Math.floor(Math.random() * unplayed.length);
+    const chosen = unplayed[randomIndex];
+
+    played.push(chosen.id);
+    savePlayedVideos(storageKey, played);
+
+    return chosen;
+}
+
+function getGuessingRoundOptions(allVideos, correctVideo, count = 5) {
+    const options = [correctVideo];
+    const others = allVideos.filter(v => v.id !== correctVideo.id);
+    const shuffledOthers = shuffle([...others]);
+    for (let i = 0; i < shuffledOthers.length && options.length < count; i++) {
+        options.push(shuffledOthers[i]);
+    }
+    return shuffle(options);
+}
+
+async function getRandomUpload(channelId) {
+    const allVideos = await getAllChannelVideos(channelId);
+    if (!allVideos || allVideos.length === 0) return null;
+    return getNextUnplayedVideo(allVideos, 'hawkster_played_random');
+}
+
+async function getMultipleRandomUploads(channelId, count) {
+    const allVideos = await getAllChannelVideos(channelId);
+    if (!allVideos || allVideos.length === 0) return [];
+    const correct = getNextUnplayedVideo(allVideos, 'hawkster_played_guessing');
+    return getGuessingRoundOptions(allVideos, correct, count);
 }
 
 async function loadChannelPfp(channelId) {
@@ -99,6 +175,7 @@ async function loadChannelPfp(channelId) {
 }
 document.addEventListener('DOMContentLoaded', () => {
     loadChannelPfp(CHANNEL_ID);
+    getAllChannelVideos(CHANNEL_ID);
 });
 
 const playerR = document.getElementById('player-r');
@@ -195,15 +272,15 @@ async function startGuessRound() {
         }
     }, 300);
 
-    const videos = await getMultipleRandomUploads(CHANNEL_ID, 5);
-    if (videos.length < 5) {
+    const allVideos = await getAllChannelVideos(CHANNEL_ID);
+    if (!allVideos || allVideos.length < 5) {
         guessResult.textContent = 'Could not fetch enough videos. Try again.';
         goButton.removeAttribute('disabled');
         return;
     }
 
-    const correctIndex = Math.floor(Math.random() * 5);
-    const correctVideo = videos[correctIndex];
+    const correctVideo = getNextUnplayedVideo(allVideos, 'hawkster_played_guessing');
+    const videos = getGuessingRoundOptions(allVideos, correctVideo, 5);
 
     await waitForYT();
 
